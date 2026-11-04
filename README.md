@@ -40,9 +40,17 @@ Built and tested on a Mac, and written to run on Windows too.
 
 ## Installing it (once)
 
-1. **Download it.** On the [skill's GitHub page](https://github.com/CollectingDaily/claude-report-typesetter), click the green **Code** button, then **Download ZIP**.
-2. **Install it.** Open the Claude app, click **Code**, choose **Local** and any folder, drag the ZIP into the message box and type: *Install this skill as a personal skill.* Click **Allow** when asked.
-3. **Restart.** Close the Claude app and open it again. Type **/** in the message box and look for **report-typesetter** in the list. If it's there, you're ready.
+1. **Open the Claude app**, click the **Code** tab, choose **Local** and any folder (such as Documents).
+2. **Paste this** into the message box and press **Return**:
+
+   ```text
+   Install the skill from https://github.com/CollectingDaily/claude-report-typesetter into ~/.claude/skills/claude-report-typesetter
+   ```
+
+3. **Click Allow** when Claude asks to download it.
+4. **Quit the Claude app completely** (⌘ Q) and open it again. Type **/** in the message box and look for **report-typesetter** in the list. If it's there, you're ready.
+
+New to Claude, or setting up a Mac for the first time? The [Collecting Daily page](https://github.com/CollectingDaily) explains everything step by step, including how to update your skills.
 
 ---
 
