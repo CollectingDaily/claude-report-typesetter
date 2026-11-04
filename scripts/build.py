@@ -135,7 +135,8 @@ def sheet(doc, units_html, first, last, blank=False):
     out = ['<section class="sheet"%s>' % (' id="%s"' % blank if blank else '')]
     out.append('  <header class="band%s" data-skip>' % ('' if first else ' compact'))
     out.append('    <img src="%s" alt="Paul Fraser Collectibles">' % logo())
-    out.append('    <div class="tag">%s</div>' % html.escape(doc['tag']))
+    if doc['tag']:                                   # Tag: none leaves the box out
+        out.append('    <div class="tag">%s</div>' % html.escape(doc['tag']))
     out.append('  </header>')
     if first:
         out.append('  <div class="titleband">')
@@ -524,8 +525,15 @@ window.addEventListener('load', function(){
     var last = host.lastElementChild;
     var txt = last ? (last.textContent || '').replace(/\\s+/g, ' ').trim() : '';
     if (!txt && last && last.querySelector('img')) txt = '[image]';
+    // the header label must sit inside the band, at least 6mm clear of the logo (it never wraps)
+    var band = s.querySelector('.band'), tg = band && band.querySelector('.tag'), hdr = 0;
+    if (tg) {
+      var br = band.getBoundingClientRect(), tr = tg.getBoundingClientRect(), lg = band.querySelector('img');
+      hdr = Math.max(tr.right - (br.right - parseFloat(getComputedStyle(band).paddingRight)),
+                     lg ? lg.getBoundingClientRect().right + 23 - tr.left : 0);
+    }
     return {page: i + 1, box: cr.height - pad, used: bottom - pad, over: Math.max(bottom - cr.height, sover),
-            last: txt.slice(-50)};
+            last: txt.slice(-50), hdr: hdr};
   });
   document.querySelectorAll('section').forEach(function(s){ s.remove(); });
   var d = document.createElement('div'); d.id = 'check-out';
@@ -566,9 +574,13 @@ def main():
     if not title:
         sys.exit('The frontmatter has no Title. The title band needs one, taken from the article.')
     disclaimer = meta.get('Disclaimer', None)
+    tag = meta.get('Tag', '').strip()
+    if not tag:
+        sys.exit('The frontmatter has no Tag, the label in the box at the top of every page. Ask the user what it '
+                 'should say (MARKET REPORT, BUYING GUIDE, NEWSLETTER...) or whether to leave the box out (Tag: none).')
     doc = dict(
         title=title,
-        tag=meta.get('Tag', '').strip() or 'MARKET REPORT',
+        tag='' if tag.lower() in ('none', 'false', 'no') else tag,
         date=meta.get('Date', '').strip() or datetime.date.today().isoformat(),
         focus=meta.get('Focus', '').strip(),
         disclaimer=DISCLAIMER if disclaimer is None or disclaimer == '' else
@@ -654,6 +666,12 @@ def main():
         print('      %s' % n)
     if any(r['over'] > 0.5 for r in real):
         failed.append('a page is clipped')
+    tight = [r for r in real if r.get('hdr', 0) > 0.5]
+    if tight:
+        print('  FAIL  the header label "%s" does not fit beside the logo on page %s (%.0fpx too wide): '
+              'agree a shorter one with the user' % (doc['tag'], ', '.join(str(r['page']) for r in tight),
+                                                     max(r['hdr'] for r in tight)))
+        failed.append('the header label is too long')
 
     print()
     s_tok, o_tok, furniture, diffs, accepted = textcheck.compare(source, draft, doc['tag'], removed)
@@ -712,7 +730,7 @@ def main():
             print('  warn  %s' % w)
 
     print('\nfurniture (layout, not Dan\'s text): header tag "%s", date %s%s%s'
-          % (doc['tag'], doc['date'], ', contact box' if contact else '',
+          % (doc['tag'] or 'none', doc['date'], ', contact box' if contact else '',
              ', disclaimer' if doc['disclaimer'] else ''))
 
     if failed:

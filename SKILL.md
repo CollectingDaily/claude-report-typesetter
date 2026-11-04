@@ -89,7 +89,7 @@ The same folder runs on both. It needs **Python 3** (standard library only) and 
    | Field | Rule |
    | --- | --- |
    | `Title` | From the article, exactly as Dan wrote it. |
-   | `Tag` | The label in the header band. Default `MARKET REPORT`. If the article opens with its own label ("Market update:"), use that and delete the line from the body: the text check recognises a label moved into the header. |
+   | `Tag` | The label in the box at the top of every page, set in capitals: whatever the user asks for (MARKET REPORT, BUYING GUIDE, NEWSLETTER, AUCTION PREVIEW), or `none` to leave the box out. If they have not said and the article opens with its own label ("Market update:"), use that and delete the line from the body: the text check recognises a label moved into the header. Otherwise ask them in one line before building; ingest leaves it blank and the build refuses a blank one, so it is never assumed. A label too long to sit beside the logo (about 30 characters fit) stops the build: agree a shorter one with the user. |
    | `Date` | Defaults to today, the day it is typeset. Use Dan's date if the article states one. |
    | `Focus` | Only if the article carries a focus or subtitle line, such as "Instruments · Stage-worn clothing · Autographs". Move it here and delete it from the body. Otherwise leave it empty: never compose one. |
    | `Contact box` | `true` puts the navy PFC contact box after the last text. Set `false` when Dan's own text already ends with the contact details, so they are not printed twice. |

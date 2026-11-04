@@ -80,9 +80,9 @@ In the Claude app, click **Code**, choose **Local**, click **Select folder** and
 
 Type:
 
-> */report-typesetter Make the report from the article and images in this folder.*
+> */report-typesetter Make the report from the article and images in this folder. Label it BUYING GUIDE.*
 
-Click **Allow** whenever Claude asks permission to run the skill.
+The label is the small box at the top of every page (see [Choosing the label](#choosing-the-label-at-the-top)). If you don't say, Claude asks you. Click **Allow** whenever Claude asks permission to run the skill.
 
 ### 5. Collect your files
 
@@ -104,7 +104,19 @@ It never fixes these itself. Change your document, save it, and ask again.
 
 Everything here is **your own words, rearranged**. Key figures and pull quotes repeat your sentences and figures exactly: Claude can't invent one, and the check refuses any that isn't word for word in your article. An article without a list of sales simply gets no cards. Nothing is ever left empty.
 
-Each report also gets the PFC contact box after the last section, and the standard line at the foot of the last page: *"This document is non-independent investment research and a marketing communication."*
+Each report also gets the PFC contact box after the last section, and the standard line at the foot of the last page: *"This document is non-independent investment research and a marketing communication."* Both can be left out or changed: just say so.
+
+---
+
+## Choosing the label at the top
+
+<p align="center"><img src="docs/header-labels.png" alt="Three page headers: one labelled MARKET REPORT, one labelled COLLECTOR'S GUIDE TO AUTOGRAPHS, and one with no label" width="100%"></p>
+
+Every page has a small box at the top right with a label in capitals. It can say anything that suits your document (**MARKET REPORT**, **BUYING GUIDE**, **NEWSLETTER**, **AUCTION PREVIEW**) or you can have no box at all. Say which when you ask; if you don't, Claude asks you before it starts.
+
+About 30 letters fit beside the logo. If your label is longer, Claude tells you and asks for a shorter one, rather than letting it run into the logo.
+
+The big title on page 1 is a different thing: it's always your article's own first line, exactly as you wrote it.
 
 ---
 
@@ -116,6 +128,8 @@ Claude chooses the boxes, pull quotes and key figures itself. To steer it, say s
 - *put the golden rules in a box*
 - *use "A signature is the most personal thing a famous person can leave behind" as a pull quote*
 - *leave out the key figures*
+- *label it AUCTION PREVIEW*, or *no label at the top*
+- *leave out the line at the foot of the last page*
 - *don't add the contact box, the article already ends with our details*
 
 ## Changing the article afterwards

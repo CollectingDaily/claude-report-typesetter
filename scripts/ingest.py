@@ -451,7 +451,7 @@ def main():
     rel = lambda p: p.relative_to(root).as_posix()
     fm = ['---',
           'Title: "%s"' % title.replace('"', '\\"'),
-          'Tag: MARKET REPORT',
+          'Tag: ',
           'Date: %s' % datetime.date.today().isoformat(),
           'Focus: ',
           'Source: "%s"' % rel(source_copy),
